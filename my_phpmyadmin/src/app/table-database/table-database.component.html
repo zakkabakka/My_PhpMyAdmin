@@ -1,0 +1,47 @@
+<body>
+<div class="tableCentre">
+  <h5>Vos BDD:</h5>
+  <table class=" centered highlight">
+    <thead>
+    <tr>
+      <th data-field="id">Name</th>
+      <th data-field="name">nombre de tables</th>
+      <th data-field="date">date de création</th>
+      <th data-field="espace">espace mémoire</th>
+      <th data-field="mod"></th>
+      <th data-field="sup"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let DB of responce; let i = index">
+      <td>{{DB.Database}}</td>
+      <td>Eclair</td>
+      <td>$0.87</td>
+      <td>$0.87</td>
+      <td><a class="btn-floating waves-effect waves-light"><i class="material-icons"
+                                                              style="cursor: pointer">mode_edit</i></a></td>
+      <td><a class="btn-floating waves-effect waves-light red" (click)="deleteDatabase(DB.Database)"><i class="material-icons"
+                                                                  style="cursor: pointer">delete</i></a></td>
+    </tr>
+    </tbody>
+  </table>
+  <button md-raised-button color="primary" (click)="addDataBase = !addDataBase">Ajouter une base de donnée</button>
+</div>
+<div class="tableCentre" *ngIf="addDataBase">
+  <md-card>
+    <md-card-header md-card-image class="toolbar">
+      <md-card-title>Ajout d'une base de donnee</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <br>
+      <md-input-container style="width: 100%">
+        <input #name md-input placeholder="Nom de la base de donnée">
+      </md-input-container>
+    </md-card-content>
+    <md-card-actions align="end">
+      <button md-raised-button class="teal" style="color: white" (click)="createDatabase(name.value)">Valider</button>
+    </md-card-actions>
+  </md-card>
+</div>
+</body>

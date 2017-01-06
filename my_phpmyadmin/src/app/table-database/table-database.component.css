@@ -1,0 +1,16 @@
+.toolbar {
+  color: white;
+  background-color: #531AAA;
+  text-align: start;
+  font-size: 20px;
+  margin: 0px;
+  width: 100%;
+  padding-left: 15px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-radius: 2px 2px 0px 0px;
+  -moz-border-radius: 2px 2px 0px 0px;
+  -webkit-border-radius: 2px 2px 0px 0px;
+  /*min-height: 30px;
+  height: 30px;*/
+}
