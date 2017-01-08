@@ -1,32 +1,38 @@
 <body>
 <br>
-<a href="" style="width: 10%"><button md-raised-button class="deep-purple" style="color: white">< Retour</button></a>
+<a href="/database/{{dataBaseName}}" style="width: 10%"><button md-raised-button class="deep-purple" style="color: white">< Retour</button></a>
 <div class="tableCentre">
-  <h5>Tables de <b>{{dataBaseName}}</b>:</h5>
+  <h5>Strcture de la table <b>{{tableName}}</b>:</h5>
   <table class=" centered highlight">
     <thead>
     <tr>
       <th data-field="id">Name</th>
-      <th data-field="name">nombre de lignes</th>
-      <th data-field="struct"></th>
+      <th data-field="type">Type</th>
+      <th data-field="null">Null</th>
+      <th data-field="key">Key</th>
+      <th data-field="def">Default</th>
+      <th data-field="extra">Extra</th>
       <th data-field="mod"></th>
       <th data-field="sup"></th>
     </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let table of responce; let i = index">
-      <td>{{table['Tables_in_'+dataBaseName.toLowerCase()]}}</td>
-      <td>3</td>
-      <td><a href="/database/{{dataBaseName}}/{{table['Tables_in_'+dataBaseName.toLowerCase()]}}">
-        <button md-raised-button class="blue" style="color: white">Structure</button></a></td>
+    <tr *ngFor="let struct of responce; let i = index">
+      <td><b>{{struct.Field}}</b></td>
+      <td>{{struct.Type}}</td>
+      <td>{{struct.Null}}</td>
+      <td>{{struct.Key}}</td>
+      <td>{{struct.Default}}</td>
+      <td>{{struct.Extra}}</td>
       <td><a class="btn-floating waves-effect waves-light"
-             (click)="renameTable(table['Tables_in_'+dataBaseName.toLowerCase()])"><i class="material-icons"
-                                                                                         style="cursor: pointer">mode_edit</i></a>
+             (click)="editStructure(struct)"><i class="material-icons" style="cursor: pointer">mode_edit</i></a>
       </td>
-      <td><a class="btn-floating waves-effect waves-light red"
-             (click)="deleteTable(table['Tables_in_'+dataBaseName.toLowerCase()])"><i class="material-icons"
-                                                                                         style="cursor: pointer">delete</i></a>
+      <td *ngIf="responce.length != 1"><a class="btn-floating waves-effect waves-light red"
+             (click)="deleteStructure(struct.Field)"><i class="material-icons" style="cursor: pointer">delete</i></a>
+      </td>
+      <td *ngIf="responce.length == 1"><p class="btn-floating waves-effect waves-light grey">
+        <i class="material-icons" style="cursor: pointer">delete</i></p>
       </td>
     </tr>
     </tbody>
@@ -44,10 +50,7 @@
     <md-card-content>
       <br>
       <div class="row">
-        <form class="col s12" (submit)="createTable(name.value)">
-          <md-input-container style="width: 100%">
-            <input #name md-input placeholder="Nom de la Table" required>
-          </md-input-container>
+        <form class="col s12" (submit)="createStructure()">
           <br>
           <div *ngFor="let col of colonne; let i = index">
             <h5>Colonne {{col.id+1}}:</h5>

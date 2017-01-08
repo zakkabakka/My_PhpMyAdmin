@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { Request } from '../api/request-database';
 import { MdDialog, MdDialogRef } from '@angular/material';
-import { ActivatedRoute, Router, NavigationCancel } from '@angular/router';
-import { URLSearchParams } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -102,5 +101,4 @@ export class TableComponent implements OnInit {
       this.dialogRef = null;
     });
   }
-
 }

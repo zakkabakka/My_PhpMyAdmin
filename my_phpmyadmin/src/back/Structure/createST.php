@@ -8,7 +8,8 @@ catch (Exception $e)
 {
         die('Erreur : ' . $e->getMessage());
 }
-$value = $_POST['value'];
+$table = $_POST['table'];
+
 $parsed_json = json_decode($_POST['colonne']);
 
 for ($i = 0; $i < count($parsed_json); $i++) {
@@ -30,16 +31,10 @@ for ($i = 0; $i < count($parsed_json); $i++) {
   else
     $isAI = '';
 
-  if ($taille == NULL)
-    ($i == 0) ? $col = $nom.' '.$type.' '.$isNull.' '.$isAI.' '.$index : $col = $col.', '.$nom.' '.$type.' '.$isNull.' '.$isAI.' '.$index;
-  else 
-    ($i == 0) ? $col = $nom.' '.$type.'('.$taille.') '.$isNull.' '.$isAI.' '.$index : $col = $col.', '.$nom.' '.$type.'('.$taille.') '.$isNull.' '.$isAI.' '.$index;
+	if ($taille == NULL)
+  		$reponse = $bdd->query('ALTER TABLE '.$table.' ADD COLUMN '.$nom.' '.$type.' '.$isNull.' '.$isAI.' '.$index);
+	else 
+		$reponse = $bdd->query('ALTER TABLE '.$table.' ADD COLUMN '.$nom.' '.$type.'('.$taille.') '.$isNull.' '.$isAI.' '.$index);
+  $reponse->execute();
 }
-
-$reponse = $bdd->query('CREATE TABLE IF NOT EXISTS '. $value.' (
-'.$col.'
-)');
-
-$reponse->execute();
-
 ?>

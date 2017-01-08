@@ -11,10 +11,12 @@ import { TableDatabaseComponent } from './table-database/table-database.componen
 import { Request } from './api/request-database';
 import { ModalComponent } from './modal/modal.component';
 import { TableComponent } from './table/table.component';
+import { StructureTableComponent } from './structure-table/structure-table.component';
 
 const appRoutes: Routes = [
   {path: '', component: TableDatabaseComponent},
-  { path: 'database/:name', component: TableComponent }
+  {path: 'database/:name', component: TableComponent},
+  {path: 'database/:name/:table', component: StructureTableComponent}
 ];
 
 @NgModule({
@@ -22,7 +24,8 @@ const appRoutes: Routes = [
     AppComponent,
     TableDatabaseComponent,
     ModalComponent,
-    TableComponent
+    TableComponent,
+    StructureTableComponent
   ],
   imports: [
     BrowserModule,
@@ -33,11 +36,13 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   entryComponents: [
-  ModalComponent
-],
+    ModalComponent,
+    StructureTableComponent
+  ],
   providers: [
     Request
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

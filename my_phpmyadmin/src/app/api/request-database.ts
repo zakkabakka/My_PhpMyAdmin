@@ -93,4 +93,47 @@ export class Request {
       headers: headers
     }).subscribe();
   }
+  /**
+   * Structure
+   * @returns {Observable<R>}
+   */
+  getStructureRequest(database: any, actualTable){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set("database", database);
+    params.set("table", actualTable);
+    this.options.search = params;
+
+    return this.http.get('http://localhost:8888/My_PhpMyAdmin/my_phpmyadmin/src/back/Structure/showST.php', this.options)
+      .map(res => res.json());
+  }
+  createStructureRequest(database,table,colonne){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Content-Type', 'application/json');
+    let order = "table="+table+"&database="+database+"&colonne="+JSON.stringify(colonne);
+
+    return this.http.post('http://localhost:8888/My_PhpMyAdmin/my_phpmyadmin/src/back/Structure/createST.php', order, {
+      headers: headers
+    }).subscribe();
+  }
+  deleteStructureRequest(database, table, structure){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Content-Type', 'application/json');
+    let body = "database="+database+"&table="+table+"&structure="+structure;
+
+    return this.http.post('http://localhost:8888/My_PhpMyAdmin/my_phpmyadmin/src/back/Structure/deleteST.php', body, {
+      headers: headers
+    }).subscribe();
+  }
+  editStructureRequest(database,table,structure,colonne){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Content-Type', 'application/json');
+    let order = "table="+table+"&database="+database+"&structure="+structure+"&colonne="+JSON.stringify(colonne);
+
+    return this.http.post('http://localhost:8888/My_PhpMyAdmin/my_phpmyadmin/src/back/Structure/editST.php', order, {
+      headers: headers
+    }).subscribe();
+  }
 }

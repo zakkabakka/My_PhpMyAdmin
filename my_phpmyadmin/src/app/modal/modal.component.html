@@ -1,23 +1,67 @@
-<div *ngIf="!isRename">
-  <h1 md-dialog-title>Voulez-vous vraiment supprimer cette base de donnée ?</h1>
-  <h5 md-dialog-title style="text-align: center; color: rebeccapurple">{{database}}</h5>
-  <md-dialog-actions>
-    <div align="center">
-      <button md-raised-button style="color: white" (click)="dialogRef.close(true)">Oui</button>
-      <button md-raised-button md-dialog-close>Non</button>
-    </div>
-  </md-dialog-actions>
+<div *ngIf="!isEditStruct">
+  <div *ngIf="!isRename">
+    <h1 md-dialog-title>Voulez-vous vraiment supprimer <b>{{database}}</b> ?</h1>
+    <h5 md-dialog-title style="text-align: center; color: rebeccapurple">{{database}}</h5>
+    <md-dialog-actions>
+      <div align="center">
+        <button md-raised-button style="color: white" (click)="dialogRef.close(true)">Oui</button>
+        <button md-raised-button md-dialog-close>Non</button>
+      </div>
+    </md-dialog-actions>
+  </div>
+  <div *ngIf="isRename">
+    <h1 md-dialog-title>Edition du nom de la base de données <b style="color: rebeccapurple">{{database}}</b></h1>
+    <br><br>
+    <md-input-container style="width: 100%">
+      <input #name md-input placeholder="Nouveau nom de la base de donnée">
+    </md-input-container>
+    <md-dialog-actions>
+      <div align="center">
+        <button md-raised-button color="primary" style="color: white" (click)="dialogRef.close(name.value)" >Valider</button>
+        <button md-raised-button md-dialog-close>Annuler</button>
+      </div>
+    </md-dialog-actions>
+  </div>
 </div>
-<div *ngIf="isRename">
-  <h1 md-dialog-title>Edition du nom de la base de données <b style="color: rebeccapurple">{{database}}</b></h1>
-  <br><br>
-  <md-input-container style="width: 100%">
-    <input #name md-input placeholder="Nouveau nom de la base de donnée">
-  </md-input-container>
-  <md-dialog-actions>
-    <div align="center">
-      <button md-raised-button color="primary" style="color: white" (click)="dialogRef.close(name.value)" >Valider</button>
-      <button md-raised-button md-dialog-close>Annuler</button>
+<div *ngIf="isEditStruct">
+  <h1 md-dialog-title>Edition du nom de la Structure <b style="color: rebeccapurple">{{structureName}}</b></h1><br>
+  <form class="col s12" (submit)="editStructure()">
+    <br>
+    <div>
+      <div class="row">
+        <div class="input-field col s3">
+          <input [(ngModel)]="colonne.nom" id="name" name="name" type="text" class="validate" required>
+          <label for="name">Nom</label>
+        </div>
+        <div class="input-field col s3">
+          <input [(ngModel)]="colonne.type" id="type" name="type" type="text" class="validate" required>
+          <label for="type">Type</label>
+        </div>
+        <div class="input-field col s3">
+          <input [(ngModel)]="colonne.taille" id="taille" name="taille" type="number" class="validate">
+          <label for="taille">Taille/Valeurs</label>
+        </div>
+        <div class="input-field col s3">
+          <input [(ngModel)]="colonne.index" id="index" name="index" type="text" class="validate">
+          <label for="index">Index</label>
+        </div>
+        <div class="switch col s2">
+          <label>
+            <input [(ngModel)]="colonne.isNull" name="isNull" type="checkbox">
+            <span class="lever"></span>
+            Null
+          </label>
+        </div>
+        <div class="switch col s3">
+          <label>
+            <input [(ngModel)]="colonne.isAI" name="AI" type="checkbox">
+            <span class="lever"></span>
+            Auto-Incrementation
+          </label>
+        </div>
+      </div>
+      <br>
     </div>
-  </md-dialog-actions>
+    <button md-raised-button class="teal right" style="color: white">Valider</button>
+  </form>
 </div>
