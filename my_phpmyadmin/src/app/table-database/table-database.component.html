@@ -15,18 +15,21 @@
 
     <tbody>
     <tr *ngFor="let DB of responce; let i = index">
-      <td>{{DB.Database}}</td>
+      <td><a href="/database/{{DB.Database}}">{{DB.Database}}</a></td>
       <td>Eclair</td>
       <td>$0.87</td>
       <td>$0.87</td>
-      <td><a class="btn-floating waves-effect waves-light"><i class="material-icons"
+      <td><a class="btn-floating waves-effect waves-light" (click)="renameDatabase(DB.Database)"><i class="material-icons"
                                                               style="cursor: pointer">mode_edit</i></a></td>
       <td><a class="btn-floating waves-effect waves-light red" (click)="deleteDatabase(DB.Database)"><i class="material-icons"
                                                                   style="cursor: pointer">delete</i></a></td>
     </tr>
     </tbody>
   </table>
-  <button md-raised-button color="primary" (click)="addDataBase = !addDataBase">Ajouter une base de donnée</button>
+  <br>
+  <div align="center">
+    <button md-raised-button color="primary" (click)="addDataBase = !addDataBase">Ajouter une base de donnée</button>
+  </div>
 </div>
 <div class="tableCentre" *ngIf="addDataBase">
   <md-card>

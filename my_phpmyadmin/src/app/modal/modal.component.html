@@ -1,0 +1,23 @@
+<div *ngIf="!isRename">
+  <h1 md-dialog-title>Voulez-vous vraiment supprimer cette base de donnée ?</h1>
+  <h5 md-dialog-title style="text-align: center; color: rebeccapurple">{{database}}</h5>
+  <md-dialog-actions>
+    <div align="center">
+      <button md-raised-button style="color: white" (click)="dialogRef.close(true)">Oui</button>
+      <button md-raised-button md-dialog-close>Non</button>
+    </div>
+  </md-dialog-actions>
+</div>
+<div *ngIf="isRename">
+  <h1 md-dialog-title>Edition du nom de la base de données <b style="color: rebeccapurple">{{database}}</b></h1>
+  <br><br>
+  <md-input-container style="width: 100%">
+    <input #name md-input placeholder="Nouveau nom de la base de donnée">
+  </md-input-container>
+  <md-dialog-actions>
+    <div align="center">
+      <button md-raised-button color="primary" style="color: white" (click)="dialogRef.close(name.value)" >Valider</button>
+      <button md-raised-button md-dialog-close>Annuler</button>
+    </div>
+  </md-dialog-actions>
+</div>

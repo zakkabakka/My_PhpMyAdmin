@@ -10,7 +10,6 @@ catch (Exception $e)
 }
 
 $value = $_POST['database'];
-echo $value;
 
 $reponse = $bdd->query('DROP DATABASE IF EXISTS '. $value);
 

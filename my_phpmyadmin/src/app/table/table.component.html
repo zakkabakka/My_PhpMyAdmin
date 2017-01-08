@@ -1,0 +1,93 @@
+<body>
+<div class="tableCentre">
+  <h5>Tables de lolo:</h5>
+  <table class=" centered highlight">
+    <thead>
+    <tr>
+      <th data-field="id">Name</th>
+      <th data-field="name">nombre de lignes</th>
+      <th data-field="mod"></th>
+      <th data-field="sup"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let table of responce; let i = index">
+      <td>{{table['Tables_in_'+dataBaseName.toLowerCase()]}}</td>
+      <td>3</td>
+      <td><a class="btn-floating waves-effect waves-light"
+             (click)="renameTable(table['Tables_in_'+dataBaseName.toLowerCase()])"><i class="material-icons"
+                                                                                         style="cursor: pointer">mode_edit</i></a>
+      </td>
+      <td><a class="btn-floating waves-effect waves-light red"
+             (click)="deleteTable(table['Tables_in_'+dataBaseName.toLowerCase()])"><i class="material-icons"
+                                                                                         style="cursor: pointer">delete</i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <div align="center">
+    <button md-raised-button color="primary" (click)="addDataBase = !addDataBase">Ajouter une table</button>
+  </div>
+</div>
+<div class="tableCentre" *ngIf="addDataBase">
+  <md-card>
+    <md-card-header md-card-image class="toolbar">
+      <md-card-title>Ajout d'une table dans {{dataBaseName}}</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <br>
+      <div class="row">
+        <form class="col s12" (submit)="createTable(name.value)">
+          <md-input-container style="width: 100%">
+            <input #name md-input placeholder="Nom de la Table" required>
+          </md-input-container>
+          <br>
+          <div *ngFor="let col of colonne; let i = index">
+            <h5>Colonne {{col.id+1}}:</h5>
+            <i class="material-icons right" *ngIf="col.id != 0" style="cursor: pointer; color: red"
+               (click)="deleteColonne(i)">cancel</i><br>
+            <div class="row">
+              <div class="input-field col s3">
+                <input [(ngModel)]="col.nom" id="name" name="name{{col.id}}" type="text" class="validate" required>
+                <label for="name">Nom</label>
+              </div>
+              <div class="input-field col s3">
+                <input [(ngModel)]="col.type" id="type" name="type{{col.id}}" type="text" class="validate" required>
+                <label for="type">Type</label>
+              </div>
+              <div class="input-field col s3">
+                <input [(ngModel)]="col.taille" id="taille" name="taille{{col.id}}" type="number" class="validate" required>
+                <label for="taille">Taille/Valeurs</label>
+              </div>
+              <div class="input-field col s3">
+                <input [(ngModel)]="col.index" id="index" name="index{{col.id}}" type="text" class="validate">
+                <label for="index">Index</label>
+              </div>
+              <div class="switch col s2">
+                <label>
+                  <input [(ngModel)]="col.isNull" name="isNull{{col.id}}" type="checkbox">
+                  <span class="lever"></span>
+                  Null
+                </label>
+              </div>
+              <div class="switch col s3">
+                <label>
+                  <input [(ngModel)]="col.isAI" name="AI{{col.id}}" type="checkbox">
+                  <span class="lever"></span>
+                  Auto-Incrementation
+                </label>
+              </div>
+            </div>
+            <br>
+          </div>
+          <br>
+          <p md-raised-button class="deep-purple" style="color: white" (click)="addColonne()">Ajouter une colonne</p>
+          <button md-raised-button class="teal right" style="color: white">Valider</button>
+        </form>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>
+</body>
